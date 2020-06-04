@@ -131,21 +131,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 op=5;
                 if(memoria == 0){
                     memoria=Float.parseFloat(display.getText().toString());
+                    display.setText("");
                 }else{
                     memoria=mMas(memoria,Float.parseFloat(display.getText().toString()));
+                    display.setText("");
                 }
                 break;
             case R.id.btnMmenos:
                 op=6;
                 if(memoria == 0){
                     memoria=Float.parseFloat(display.getText().toString());
+                    display.setText("");
                 }else{
                     memoria=mMenos(memoria,Float.parseFloat(display.getText().toString()));
+                    display.setText("");
                 }
                 break;
             case R.id.btnM:
                 op=7;
                 memoria=m(Float.parseFloat(display.getText().toString()));
+                display.setText("");
                 break;
             case R.id.btnIgual:
                 if(display.getText().toString().equals("")){
@@ -176,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             total=total-Float.parseFloat(display.getText().toString());
                             break;
                         case 7:
-                            total=Float.parseFloat(display.getText().toString());
+                            total=memoria;
                             break;
                     }
                 }
