@@ -114,9 +114,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     op1=0;
                 }else {
                     if(display.getText().toString().equals("0")){
-                        String mensaje = dividirCero();
-                        display.setText(mensaje+"");
-                        total=0;
+                        try{
+                            String mensaje = dividirCero();
+                            display.setText(mensaje+"");
+                            total=0;
+                        }catch (Exception e){
+                            display.setText("");
+                        }
                     }else{
                         total=dividir(total,Float.parseFloat(display.getText().toString()));
                         display.setText("");
