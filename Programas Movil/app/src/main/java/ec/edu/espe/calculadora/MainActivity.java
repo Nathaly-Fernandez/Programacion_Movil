@@ -53,6 +53,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public float dividir(float a,float b){
         return a/b;
     }
+    public String dividirCero(){
+        String mensaje="Math Error";
+        return mensaje;
+    }
     public float mMas(float a,float b){
         return a+b;
     }
@@ -62,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public float m(float a){
         return a;
     }
-    public void borrrar(){
-        total=0;
+    public float borrar(){
+        return 0;
     }
 
     @Override
@@ -110,6 +114,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     op1=0;
                 }else {
                     if(display.getText().toString().equals("0")){
+                        String mensaje = dividirCero();
+                        display.setText(mensaje+"");
                         total=0;
                     }else{
                         total=dividir(total,Float.parseFloat(display.getText().toString()));
@@ -171,7 +177,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
                 if(op==9){
-                    display.setText("Math Error");
+                    String mensaje=dividirCero();
+                    display.setText(mensaje+"");
                     op=0;
                 }else{
                     display.setText(total+"");
@@ -180,7 +187,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.btnBorrado:
-                total=0;
+                total=borrar();
+                memoria=borrar();
                 display.setText("");
                 break;
 
