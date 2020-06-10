@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     Button suma,resta,multi,div,mmas,mmenos,m,igual,borrar,eliminar,factorial,exponencial;
-    Button num1,num2,num3,num4,num5,num6,num7,num8,num9,num0,punto,modulo,signo;
+    Button num1,num2,num3,num4,num5,num6,num7,num8,num9,num0,punto,modulo,signo,raiz;
     EditText display;
     Numero numero= new Numero();
     Operacion operacion = new Operacion();
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         punto=(Button)findViewById(R.id.btnPunto);
         modulo=(Button)findViewById(R.id.btnMod);
         signo=(Button)findViewById(R.id.btnSigno);
+        raiz=(Button)findViewById(R.id.btnRaiz);
 
         suma.setOnClickListener(this);
         resta.setOnClickListener(this);
@@ -73,6 +74,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         punto.setOnClickListener(this);
         modulo.setOnClickListener(this);
         signo.setOnClickListener(this);
+        raiz.setOnClickListener(this);
+    }
+    public int raiz(int numero){
+        String num = Integer.toString(numero);
+        if(num.contains(".")){
+            String[] parts = num.split("-");
+            num=parts[0];
+        }
+        int cantidad = num.length();
+
+        return 0;
     }
     public int modulo(int divisor, int dividendo){
         int num=0;
