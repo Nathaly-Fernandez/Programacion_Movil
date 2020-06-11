@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    Button suma,resta,multi,div,mmas,mmenos,m,igual,borrar,eliminar,factorial,exponencial;
+    Button suma,resta,multi,div,mmas,mmenos,m,igual,borrar,eliminar,factorial,exponencial,sin,cos,tan;
     Button num1,num2,num3,num4,num5,num6,num7,num8,num9,num0,punto,modulo,signo,raiz,logaritmo;
     EditText display;
     Numero numero= new Numero();
@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         signo=(Button)findViewById(R.id.btnSigno);
         raiz=(Button)findViewById(R.id.btnRaiz);
         logaritmo=(Button) findViewById(R.id.btnLog);
+        sin=(Button) findViewById(R.id.btnSin);
+        cos=(Button) findViewById(R.id.btnCos);
+        tan=(Button) findViewById(R.id.btnTan);
 
         suma.setOnClickListener(this);
         resta.setOnClickListener(this);
@@ -81,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         signo.setOnClickListener(this);
         raiz.setOnClickListener(this);
         logaritmo.setOnClickListener(this);
+        sin.setOnClickListener(this);
+        cos.setOnClickListener(this);
+        tan.setOnClickListener(this);
     }
 
         public double log(int b,double n) {
@@ -99,79 +105,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             r = Math.pow(x, i);
             return r;
         }
+    static double serieTaylorSin(double x) {
+        x=x*(Math.PI/180);
+        double sumando, sumatoria = 0, precision = 0.0001d;
 
+        // limite superior, iteracion de la sumatoria
+        int n = 0;
 
+        do {
+            sumando = Math.pow(-1, n) / factorial(((2 * n)+1)) * Math.pow(x, (2 * n)+1);
+            sumatoria = sumatoria + sumando;
+            n = n + 1;
+        } while (Math.abs(sumando) > precision);
 
-    public static void parseNumber(String n) {
-        List result = new ArrayList();
-        String number = n.trim();
-        char[] numberChars = number.toCharArray();
-        int length = numberChars.length;
-        int i = 0;
-        if (length % 2 != 0) {
-            // si hay un numero impar de dígitos se toma el primer dígito
-            result.add(new Integer(new Character(numberChars[0]).toString()));
-            i = 1;
-        }
+        return sumatoria;
     }
-    public static HashMap minimoPositivo(List<HashMap> lista){
-        Integer minimo=Integer.MAX_VALUE;
-        int indice=0;
-        HashMap result=new HashMap();
-        for(HashMap elem:lista){// se recorre toda la lista
-            Integer elemento=Integer.parseInt(elem.get("resto").toString());
-            if(minimo>elemento && elemento>=0){// se obtiene el minimo positivo
-                minimo=elemento;
-                indice=Integer.parseInt(elem.get("indice").toString());
-            }
-        }
-        result.put("indice",indice);
-        result.put("resto",minimo);
-        return result;
-    }
-    public static HashMap procesarRadicacion(Integer tupla, Integer raiz, Integer resto){
-        HashMap result=new HashMap();
-        List lista=new ArrayList();
-        result.put("raiz",0);
-        result.put("resto",0);
-        Integer radical=raiz*2;
-        Integer nuevoresto;
-        Integer numero=0;
-        try{
-            numero=new Integer(resto.toString()+tupla.toString());
-        }catch(Exception ex){
-            System.err.println("El numero es demasiado grande no se puede procesar ...");
-        }
-        Integer nuevaraiz;
-        Integer operando;
-        for(Integer i=0;i<=9;i++){// se calcula los restos posibles
-            operando=raiz*2;
-            operando=Integer.parseInt(operando.toString()+i.toString());
-            nuevoresto=numero-(operando*i);
-            HashMap hash=new HashMap();
-            hash.put("resto",nuevoresto);
-            hash.put("indice",i);
-            lista.add(hash);
-        }
-        HashMap Minimo=minimoPositivo(lista);//se obtiene el minimo
-        nuevaraiz=new Integer(raiz.toString()+Minimo.get("indice").toString());
-        result.put("raiz",nuevaraiz.toString());
-        result.put("resto",Minimo.get("resto").toString());
-        return result;
-    }
-    public void  raiz(int numero){
+    static double serieTaylorCos(double x) {
+        x=x*(Math.PI/180);
+        double sumando, sumatoria = 0, precision = 0.0001d;
 
-    }
-    public int logaritmo(int numero){
-        String num = Integer.toString(numero);
-        if(num.contains(".")){
-            String[] parts = num.split("-");
-            num=parts[0];
-        }
-        int cantidad = num.length();
+        // limite superior, iteracion de la sumatoria
+        int n = 0;
 
-        return 0;
+        do {
+            sumando = Math.pow(-1, n) / factorial(2 * n) * Math.pow(x, 2 * n);
+            sumatoria = sumatoria + sumando;
+            n = n + 1;
+        } while (Math.abs(sumando) > precision);
+
+        return sumatoria;
     }
+
+    static double factorial(int numero) {
+        double factorial = 1.0d;
+
+        while (numero != 0) {
+            factorial *= numero--;
+        }
+
+        return factorial;
+    }
+
+    public double  raiz(int numero){
+        double x = 1.0;
+        int a = numero;
+        int k;
+        for(k = 1; k < 10; k++){
+            x = (x + a/x) / 2;
+        }
+        return x;
+    }
+
     public int modulo(int divisor, int dividendo){
         int num=0;
         int aux;
@@ -643,8 +627,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     titulo.setTitle("ERROR");
                     titulo.show();
                 }else {
-                    //total=raiz(Integer.parseInt(display.getText().toString()));
-
+                    total=raiz(Integer.parseInt(display.getText().toString()));
+                    display.setText(total+"");
+                }
+                break;
+            case R.id.btnSin:
+                op=14;
+                ingreso ="";
+                if(display.getText().toString().equals("")){
+                    AlertDialog.Builder alerta =  new AlertDialog.Builder(MainActivity.this);
+                    alerta.setMessage("Ingrese un numero primero");
+                    AlertDialog titulo = alerta.create();
+                    titulo.setTitle("ERROR");
+                    titulo.show();
+                }else {
+                    total=serieTaylorSin(Double.parseDouble(display.getText().toString()));
+                    display.setText(total+"");
+                }
+                break;
+            case R.id.btnCos:
+                op=15;
+                ingreso ="";
+                if(display.getText().toString().equals("")){
+                    AlertDialog.Builder alerta =  new AlertDialog.Builder(MainActivity.this);
+                    alerta.setMessage("Ingrese un numero primero");
+                    AlertDialog titulo = alerta.create();
+                    titulo.setTitle("ERROR");
+                    titulo.show();
+                }else {
+                    total=serieTaylorCos(Double.parseDouble(display.getText().toString()));
+                    display.setText(total+"");
+                }
+                break;
+            case R.id.btnTan:
+                op=15;
+                ingreso ="";
+                if(display.getText().toString().equals("")){
+                    AlertDialog.Builder alerta =  new AlertDialog.Builder(MainActivity.this);
+                    alerta.setMessage("Ingrese un numero primero");
+                    AlertDialog titulo = alerta.create();
+                    titulo.setTitle("ERROR");
+                    titulo.show();
+                }else {
+                    total=serieTaylorSin(Double.parseDouble(display.getText().toString()))/serieTaylorCos(Double.parseDouble(display.getText().toString()));
+                    display.setText(total+"");
                 }
                 break;
 
