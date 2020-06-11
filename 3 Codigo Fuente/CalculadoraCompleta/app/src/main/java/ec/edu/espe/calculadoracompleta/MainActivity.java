@@ -8,9 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     Button suma,resta,multi,div,mmas,mmenos,m,igual,borrar,eliminar,factorial,exponencial;
-    Button num1,num2,num3,num4,num5,num6,num7,num8,num9,num0,punto,modulo,signo,raiz;
+    Button num1,num2,num3,num4,num5,num6,num7,num8,num9,num0,punto,modulo,signo,raiz,logaritmo;
     EditText display;
     Numero numero= new Numero();
     Operacion operacion = new Operacion();
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         modulo=(Button)findViewById(R.id.btnMod);
         signo=(Button)findViewById(R.id.btnSigno);
         raiz=(Button)findViewById(R.id.btnRaiz);
+        logaritmo=(Button) findViewById(R.id.btnLog);
 
         suma.setOnClickListener(this);
         resta.setOnClickListener(this);
@@ -75,8 +80,89 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         modulo.setOnClickListener(this);
         signo.setOnClickListener(this);
         raiz.setOnClickListener(this);
+        logaritmo.setOnClickListener(this);
     }
-    public int raiz(int numero){
+
+        public double log(int b,double n) {
+            double val = 0;
+            int i,accurate = 10,reps=0;
+            while(n != 1 && accurate>=0) {
+                for(i=0;n>=b;i++) n /= b;
+                n = p(n,10);
+                val = 10*(val+i);
+                accurate--; reps++;
+            }
+            return (double)val/p(10,reps);
+        }
+        public double p(double x,int i) {
+            double r = 1.0;
+            r = Math.pow(x, i);
+            return r;
+        }
+
+
+
+    public static void parseNumber(String n) {
+        List result = new ArrayList();
+        String number = n.trim();
+        char[] numberChars = number.toCharArray();
+        int length = numberChars.length;
+        int i = 0;
+        if (length % 2 != 0) {
+            // si hay un numero impar de dígitos se toma el primer dígito
+            result.add(new Integer(new Character(numberChars[0]).toString()));
+            i = 1;
+        }
+    }
+    public static HashMap minimoPositivo(List<HashMap> lista){
+        Integer minimo=Integer.MAX_VALUE;
+        int indice=0;
+        HashMap result=new HashMap();
+        for(HashMap elem:lista){// se recorre toda la lista
+            Integer elemento=Integer.parseInt(elem.get("resto").toString());
+            if(minimo>elemento && elemento>=0){// se obtiene el minimo positivo
+                minimo=elemento;
+                indice=Integer.parseInt(elem.get("indice").toString());
+            }
+        }
+        result.put("indice",indice);
+        result.put("resto",minimo);
+        return result;
+    }
+    public static HashMap procesarRadicacion(Integer tupla, Integer raiz, Integer resto){
+        HashMap result=new HashMap();
+        List lista=new ArrayList();
+        result.put("raiz",0);
+        result.put("resto",0);
+        Integer radical=raiz*2;
+        Integer nuevoresto;
+        Integer numero=0;
+        try{
+            numero=new Integer(resto.toString()+tupla.toString());
+        }catch(Exception ex){
+            System.err.println("El numero es demasiado grande no se puede procesar ...");
+        }
+        Integer nuevaraiz;
+        Integer operando;
+        for(Integer i=0;i<=9;i++){// se calcula los restos posibles
+            operando=raiz*2;
+            operando=Integer.parseInt(operando.toString()+i.toString());
+            nuevoresto=numero-(operando*i);
+            HashMap hash=new HashMap();
+            hash.put("resto",nuevoresto);
+            hash.put("indice",i);
+            lista.add(hash);
+        }
+        HashMap Minimo=minimoPositivo(lista);//se obtiene el minimo
+        nuevaraiz=new Integer(raiz.toString()+Minimo.get("indice").toString());
+        result.put("raiz",nuevaraiz.toString());
+        result.put("resto",Minimo.get("resto").toString());
+        return result;
+    }
+    public void  raiz(int numero){
+
+    }
+    public int logaritmo(int numero){
         String num = Integer.toString(numero);
         if(num.contains(".")){
             String[] parts = num.split("-");
@@ -533,6 +619,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     display.setText(ingreso +"");
                 }
                 break;
+            case R.id.btnLog:
+                op=12;
+                ingreso ="";
+                if(display.getText().toString().equals("")){
+                    AlertDialog.Builder alerta =  new AlertDialog.Builder(MainActivity.this);
+                    alerta.setMessage("Ingrese un numero primero");
+                    AlertDialog titulo = alerta.create();
+                    titulo.setTitle("ERROR");
+                    titulo.show();
+                }else {
+                    total= log(10,Integer.parseInt(display.getText().toString()));
+                    display.setText(total+"");
+                }
+                break;
+            case R.id.btnRaiz:
+                op=13;
+                ingreso ="";
+                if(display.getText().toString().equals("")){
+                    AlertDialog.Builder alerta =  new AlertDialog.Builder(MainActivity.this);
+                    alerta.setMessage("Ingrese un numero primero");
+                    AlertDialog titulo = alerta.create();
+                    titulo.setTitle("ERROR");
+                    titulo.show();
+                }else {
+                    //total=raiz(Integer.parseInt(display.getText().toString()));
+
+                }
+                break;
+
 
 
 
