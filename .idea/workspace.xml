@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="13be24fb-da3f-41b4-87ee-5b62a53b68e4" name="Default Changelist" comment="" />
+=======
     <list default="true" id="eb316cd7-34f2-4c11-ac44-2a0d329bc292" name="Default Changelist" comment="" />
+>>>>>>> a2fdfaa9b469f622286e64174bad541e8f17c635
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,10 +15,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< HEAD
+  <component name="ProjectId" id="1dBLdxL292JsLnVxg4khUylzLsw" />
+=======
   <component name="ProjectId" id="1crjgOQuL5ntzIL8Wf3teSYnmcQ" />
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/3.CodigoFuente/Programas Movil" />
   </component>
+>>>>>>> a2fdfaa9b469f622286e64174bad541e8f17c635
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -32,11 +40,19 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
+      <changelist id="13be24fb-da3f-41b4-87ee-5b62a53b68e4" name="Default Changelist" comment="" />
+      <created>1591893631352</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1591893631352</updated>
+=======
       <changelist id="eb316cd7-34f2-4c11-ac44-2a0d329bc292" name="Default Changelist" comment="" />
       <created>1591293716160</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1591293716160</updated>
+>>>>>>> a2fdfaa9b469f622286e64174bad541e8f17c635
     </task>
     <servers />
   </component>
@@ -45,7 +61,13 @@
       <map>
         <entry key="MAIN">
           <value>
+<<<<<<< HEAD
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+=======
             <State />
+>>>>>>> a2fdfaa9b469f622286e64174bad541e8f17c635
           </value>
         </entry>
       </map>
