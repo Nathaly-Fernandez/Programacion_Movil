@@ -14,7 +14,7 @@ import java.util.List;
 
 /*
 Autores:
-    - Nicole Arias 
+    - Nicole Arias
     - Nathaly Fernandez
     - Oscar Taco
 Tutor:
