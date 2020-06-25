@@ -1,6 +1,7 @@
 package ec.edu.espe.calculadoracompleta;
 
 public class Numero {
+
     private double num;
 
     public Numero(float num) {
