@@ -3,6 +3,7 @@ package ec.edu.espe.calculadoracompleta;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,7 @@ Tutor:
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Button suma, resta, multi, div, mmas, mmenos, m, igual, borrar, eliminar, factorial, exponencial, sin, cos, tan;
+    Button suma, resta, multi, div, mmas, mmenos, m, igual, borrar, eliminar, factorial, exponencial, sin, cos, tan,grafico;
     Button num1, num2, num3, num4, num5, num6, num7, num8, num9, num0, punto, modulo, signo, raiz, logaritmo, oct, dec, hex, bin;
     EditText display;
     Numero numero = new Numero();
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dec = (Button) findViewById(R.id.btnDec);
         hex = (Button) findViewById(R.id.btnHex);
         bin = (Button) findViewById(R.id.btnBin);
+        grafico= (Button) findViewById(R.id.btnGraf);
 
         suma.setOnClickListener(this);
         resta.setOnClickListener(this);
@@ -106,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dec.setOnClickListener(this);
         hex.setOnClickListener(this);
         bin.setOnClickListener(this);
+        grafico.setOnClickListener(this);
     }
 
     /**
@@ -462,6 +465,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.btnGraf:
+                Intent intent = new Intent (v.getContext(), grafico.class);
+                startActivityForResult(intent, 0);
+                break;
             case R.id.btnSigno:
                 if (display.getText().toString().equals("")) {
                     AlertDialog.Builder alerta = new AlertDialog.Builder(MainActivity.this);
